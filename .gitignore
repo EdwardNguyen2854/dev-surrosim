@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+outputs/
+data/*.csv
+*.msh
+*.step
+*.frd
+*.dat
+*.sta
+*.cvg
