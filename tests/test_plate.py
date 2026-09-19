@@ -19,7 +19,7 @@ def test_nominal_beam_theory_reference():
 
 
 @pytest.mark.parametrize("changes", [
-    {"hole_diameter_mm": 41}, {"hole_x_mm": 2},
+    {"hole_diameter_mm": 41}, {"hole_diameter_mm": -1}, {"hole_x_mm": 2},
     {"hole_x_mm": 119}, {"force_n": math.inf},
     {"mesh_size_mm": -1}, {"poisson_ratio": 0.5},
 ])
@@ -64,3 +64,9 @@ def test_missing_gmsh_gives_install_hint(monkeypatch, tmp_path):
     monkeypatch.setattr(builtins, "__import__", without_gmsh)
     with pytest.raises(RuntimeError, match="pip install"):
         generate_plate(Plate(), tmp_path / "out")
+
+
+def test_no_hole_is_valid_for_beam_validation():
+    p = Plate(hole_diameter_mm=0)
+    p.validate()
+    assert p.nominal_baseline()["nominal_tip_displacement_mm"] > 0
