@@ -33,13 +33,15 @@ def generate_plate(plate: Plate, output_dir: str | Path) -> dict:
         occ = gmsh.model.occ
         l, w, t = plate.length_mm, plate.width_mm, plate.thickness_mm
         box = occ.addBox(0, -w / 2, -t / 2, l, w, t)
-        # Extend tool beyond both planar faces to avoid coincident cutter caps.
-        cutter = occ.addCylinder(
-            plate.hole_x_mm, 0, -t / 2 - 1.0,
-            0, 0, t + 2.0, plate.hole_diameter_mm / 2,
-        )
-        solids, _ = occ.cut([(3, box)], [(3, cutter)],
-                            removeObject=True, removeTool=True)
+        if plate.hole_diameter_mm > 0:
+            cutter = occ.addCylinder(
+                plate.hole_x_mm, 0, -t / 2 - 1.0,
+                0, 0, t + 2.0, plate.hole_diameter_mm / 2,
+            )
+            solids, _ = occ.cut([(3, box)], [(3, cutter)],
+                                removeObject=True, removeTool=True)
+        else:
+            solids = [(3, box)]
         occ.synchronize()
         volume_tags = [tag for dim, tag in solids if dim == 3]
         if len(volume_tags) != 1:
