@@ -26,18 +26,21 @@ class Plate:
             if not math.isfinite(value):
                 raise ValueError(f"{name} must be finite")
         for name in (
-            "length_mm", "width_mm", "thickness_mm", "hole_diameter_mm",
+            "length_mm", "width_mm", "thickness_mm",
             "youngs_modulus_mpa", "mesh_size_mm",
         ):
             if values[name] <= 0:
                 raise ValueError(f"{name} must be positive")
         if not -1.0 < self.poisson_ratio < 0.5:
             raise ValueError("poisson_ratio must lie strictly between -1 and 0.5")
+        if self.hole_diameter_mm < 0:
+            raise ValueError("hole_diameter_mm must be non-negative")
         if self.hole_diameter_mm >= self.width_mm:
             raise ValueError("hole must fit inside the width")
-        radius = self.hole_diameter_mm / 2
-        if not radius < self.hole_x_mm < self.length_mm - radius:
-            raise ValueError("hole must not intersect the clamped or loaded end")
+        if self.hole_diameter_mm > 0:
+            radius = self.hole_diameter_mm / 2
+            if not radius < self.hole_x_mm < self.length_mm - radius:
+                raise ValueError("hole must not intersect the clamped or loaded end")
         if self.mesh_size_mm >= min(self.length_mm, self.width_mm, self.thickness_mm):
             raise ValueError("mesh_size_mm must be smaller than the smallest outer dimension")
 
