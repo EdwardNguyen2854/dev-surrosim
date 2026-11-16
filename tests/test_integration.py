@@ -13,7 +13,20 @@ import pytest
 
 from surrosim.plate import Plate
 
-pytest.importorskip("gmsh", reason="Gmsh is required for integration tests")
+def _require_gmsh() -> None:
+    """Skip the module when Gmsh is absent or its native library cannot load.
+
+    ``pytest.importorskip`` only catches ImportError, but a broken Gmsh
+    install raises OSError while loading libGLU, which would abort collection
+    for the whole suite instead of skipping the solver tests.
+    """
+    try:
+        import gmsh  # noqa: F401
+    except Exception as exc:  # noqa: BLE001 - any load failure means "no solver"
+        pytest.skip(f"Gmsh is not importable ({exc})", allow_module_level=True)
+
+
+_require_gmsh()
 
 pytestmark = pytest.mark.solver
 
