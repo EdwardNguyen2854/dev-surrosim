@@ -1,0 +1,72 @@
+{
+  "study": "mesh_convergence",
+  "reference": "successive refinement of the perforated production geometry",
+  "geometry": {
+    "length_mm": 120.0,
+    "width_mm": 40.0,
+    "thickness_mm": 6.0,
+    "hole_diameter_mm": 12.0,
+    "hole_x_mm": 60.0,
+    "force_n": 500.0,
+    "youngs_modulus_mpa": 210000.0,
+    "poisson_ratio": 0.3,
+    "mesh_size_mm": 3.0
+  },
+  "hole_refinement_mm": 1.2,
+  "cases": [
+    {
+      "mesh_size_mm": 3.0,
+      "element_order": 2,
+      "hole_refinement_mm": 1.2,
+      "element_type": "C3D10",
+      "status": "SUCCESS",
+      "nodes": 19344,
+      "elements": 10901,
+      "runtime_seconds": 4.429422600020189,
+      "max_displacement_mm": 1.934970563101564,
+      "global_max_von_mises_mpa": 269.75307583054575,
+      "max_von_mises_roi_mpa": 269.75307583054575,
+      "midspan_surface_sxx_mpa": 272.459,
+      "midspan_surface_x_mm": 59.41189256487279,
+      "case_dir": "outputs\\validation\\mesh\\size_3_order_2_ref_1.2"
+    },
+    {
+      "mesh_size_mm": 2.0,
+      "element_order": 2,
+      "hole_refinement_mm": 1.2,
+      "element_type": "C3D10",
+      "status": "SUCCESS",
+      "nodes": 42783,
+      "elements": 25674,
+      "runtime_seconds": 11.563190599990776,
+      "max_displacement_mm": 1.9360508753143837,
+      "global_max_von_mises_mpa": 270.45640743845706,
+      "max_von_mises_roi_mpa": 270.45640743845706,
+      "midspan_surface_sxx_mpa": 272.908,
+      "midspan_surface_x_mm": 59.41189511549936,
+      "case_dir": "outputs\\validation\\mesh\\size_2_order_2_ref_1.2",
+      "displacement_change_pct": 0.055830937866473654,
+      "roi_stress_change_pct": 0.2607316360511604,
+      "global_stress_change_pct": 0.2607316360511604
+    },
+    {
+      "mesh_size_mm": 1.5,
+      "element_order": 2,
+      "hole_refinement_mm": 1.2,
+      "element_type": "C3D10",
+      "status": "SUCCESS",
+      "nodes": 75247,
+      "elements": 46418,
+      "runtime_seconds": 24.620657699997537,
+      "max_displacement_mm": 1.9367110661523794,
+      "global_max_von_mises_mpa": 270.8276335993273,
+      "max_von_mises_roi_mpa": 270.8276335993273,
+      "midspan_surface_sxx_mpa": 270.536,
+      "midspan_surface_x_mm": 59.41189639141351,
+      "case_dir": "outputs\\validation\\mesh\\size_1.5_order_2_ref_1.2",
+      "displacement_change_pct": 0.03409987032951956,
+      "roi_stress_change_pct": 0.13725914811418843,
+      "global_stress_change_pct": 0.13725914811418843
+    }
+  ]
+}

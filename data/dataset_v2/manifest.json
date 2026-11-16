@@ -1,0 +1,67 @@
+{
+  "schema_version": "2.0.0",
+  "created_utc": "2026-09-21T00:16:19.298480+00:00",
+  "designs_file": "data/designs_v2.csv",
+  "designs_sha256": "727b2d789fcd09401954a6e98d92c002da2999c6aab1bc24ef884da127c52dcf",
+  "dataset_file": "dataset.csv",
+  "dataset_sha256": "238111c799321e7addacc3460ecbbe113a9ecbe74754061535ab121d589b5776",
+  "runs_root": "data\\runs_v2",
+  "base_datasets": [
+    {
+      "path": "data/dataset_v1/dataset.csv",
+      "sha256": "c94d884666caa38a0eb1e6dfdab45a7680847eca16a4cf1c016e9b4cdf3e5e98",
+      "cases": 644
+    }
+  ],
+  "cases_in_designs": 2809,
+  "cases_from_base": 644,
+  "cases_in_dataset": 2809,
+  "cases_failed": 0,
+  "split_counts": {
+    "challenge": 349,
+    "train": 1722,
+    "val": 369,
+    "test": 369
+  },
+  "shape_counts": {
+    "plate": 644,
+    "i_beam": 433,
+    "l_bracket": 433,
+    "multi_hole": 433,
+    "stepped": 433,
+    "taper": 433
+  },
+  "mesh_policy": {
+    "name": "production",
+    "element_order": 2,
+    "global_size_factor": 2.0,
+    "global_size_cap_mm": 3.0,
+    "global_size_floor_mm": 0.0,
+    "hole_size_fraction": 0.1,
+    "hole_grading_fraction": 0.6,
+    "fillet_size_fraction": 0.6
+  },
+  "solver": {
+    "versions": [
+      "2.23"
+    ],
+    "total_solver_seconds": 40411.179385398864
+  },
+  "environment": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "surrosim": "0.2.0.dev0"
+  },
+  "git": {
+    "commit": "af168644bd8eef34c0ded8dc014d69e3580122db",
+    "dirty": true
+  },
+  "gates": [
+    "solver status == SUCCESS",
+    "deck total force matches requested force",
+    "mesh nodes >= 500",
+    "fields.npz present",
+    "displacement and global stress finite and positive",
+    "ROI stress finite and positive when defined"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0.0",
+  "created_utc": "2026-09-19T17:16:15.936942+00:00",
+  "designs_file": "data/designs_v1.csv",
+  "designs_sha256": "7f54e2839df7a156805204e8eb01e5e7db6091a61482e06414702ec2a6b95e4e",
+  "dataset_file": "dataset.csv",
+  "dataset_sha256": "c94d884666caa38a0eb1e6dfdab45a7680847eca16a4cf1c016e9b4cdf3e5e98",
+  "runs_root": "data\\runs",
+  "cases_in_designs": 644,
+  "cases_in_dataset": 644,
+  "cases_failed": 0,
+  "split_counts": {
+    "challenge": 84,
+    "train": 392,
+    "test": 84,
+    "val": 84
+  },
+  "mesh_policy": {
+    "element_order": 2,
+    "global_size_factor": 2.0,
+    "global_size_cap_mm": 3.0,
+    "hole_size_fraction": 0.1,
+    "hole_grading_fraction": 0.6
+  },
+  "solver": {
+    "versions": [
+      "2.23"
+    ],
+    "total_solver_seconds": 6808.073562400008
+  },
+  "environment": {
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "git": {
+    "commit": "3dfcad2b5e63ffbcaa4777e9883a7d8c823d5a2d",
+    "dirty": false
+  },
+  "gates": [
+    "solver status == SUCCESS",
+    "deck total force matches requested force",
+    "mesh nodes >= 500",
+    "fields.npz present",
+    "displacement and global stress finite and positive",
+    "ROI stress finite and positive when defined"
+  ]
+}

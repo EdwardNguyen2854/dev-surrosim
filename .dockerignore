@@ -1,0 +1,10 @@
+.git
+.venv
+outputs
+tools
+data/runs
+data/runs_smoke
+data/dataset_smoke
+__pycache__
+*.pyc
+.pytest_cache

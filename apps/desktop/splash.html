@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; font-src 'self'"
+    />
+    <title>SurroSim</title>
+    <style>
+      /* DesignKit typography — Latin subsets, SIL OFL 1.1 (assets/fonts/README.md). */
+      @font-face {
+        font-family: "Fraunces";
+        font-style: normal;
+        font-weight: 300 700;
+        font-display: swap;
+        src: url("assets/fonts/fraunces-latin.woff2") format("woff2");
+      }
+      @font-face {
+        font-family: "Manrope";
+        font-style: normal;
+        font-weight: 200 800;
+        font-display: swap;
+        src: url("assets/fonts/manrope-latin.woff2") format("woff2");
+      }
+      :root {
+        color-scheme: light;
+        /* DesignKit light theme — mirrors apps/web/src/tokens.css. */
+        --canvas: #f6f8fa;
+        --ink: #101214;
+        --muted: #3d444d;
+        --faint: #7a838d;
+        --accent: #006b8a;
+        --accent-border: #a6d3e3;
+        --line: #e2e8ee;
+        --display: "Fraunces", Georgia, "Times New Roman", serif;
+        --body: "Manrope", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background:
+          radial-gradient(120% 90% at 50% -25%, rgba(0, 129, 175, 0.055), transparent 62%),
+          var(--canvas);
+        color: var(--ink);
+        font-family: var(--body);
+        user-select: none;
+        border: 1px solid var(--line);
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 34px;
+        text-align: center;
+      }
+      .mark {
+        width: 34px;
+        height: 34px;
+      }
+      h1 {
+        margin-top: 12px;
+        font-family: var(--display);
+        font-size: 25px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        line-height: 1.1;
+      }
+      .subtitle {
+        margin-top: 5px;
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--faint);
+      }
+      .progress {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 26px;
+      }
+      .spinner {
+        width: 17px;
+        height: 17px;
+        flex: none;
+        animation: spin 0.9s linear infinite;
+      }
+      .spinner circle {
+        fill: none;
+        stroke-width: 2.6;
+      }
+      .spinner .track {
+        stroke: var(--accent-border);
+      }
+      .spinner .head {
+        stroke: var(--accent);
+        stroke-linecap: round;
+        stroke-dasharray: 56.5;
+        stroke-dashoffset: 42.4;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .launch {
+        font-size: 12.5px;
+        color: var(--muted);
+      }
+      .dots span {
+        display: inline-block;
+        opacity: 0.2;
+        animation: dot-pulse 1.2s ease-in-out infinite;
+      }
+      .dots span:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .dots span:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      @keyframes dot-pulse {
+        0%,
+        70%,
+        100% {
+          opacity: 0.2;
+        }
+        35% {
+          opacity: 1;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .spinner,
+        .dots span {
+          animation: none;
+        }
+        .dots span {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path
+          d="M22 10.2C22 7 19.4 5.2 16.2 5.2 12.4 5.2 9.8 8 9.8 11.4 9.8 14.8 12.4 16 16 16 20 16 22.6 17.4 22.6 20.8 22.6 24.2 20 27 16.2 27 12.8 27 10.4 25.4 10 22"
+          fill="none"
+          stroke="#101214"
+          stroke-width="4"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle cx="10.2" cy="22.2" r="2" fill="#40a0c3" />
+      </svg>
+      <h1>SurroSim</h1>
+      <p class="subtitle">AI Simulation Platform</p>
+      <div class="progress" role="status">
+        <svg class="spinner" viewBox="0 0 24 24" aria-hidden="true">
+          <circle class="track" cx="12" cy="12" r="9" />
+          <circle class="head" cx="12" cy="12" r="9" />
+        </svg>
+        <p class="launch">
+          SurroSim is launching<span class="dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span>
+        </p>
+      </div>
+    </main>
+    <script>
+      // The shell keeps reporting progress through this bridge (it is also the
+      // source of the fatal-error message). The splash deliberately shows no
+      // technical detail; the full log lives in outputs/desktop/backend.log.
+      window.__setStatus = function () {};
+    </script>
+  </body>
+</html>

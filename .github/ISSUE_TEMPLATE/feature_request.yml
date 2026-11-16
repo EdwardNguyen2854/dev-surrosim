@@ -1,0 +1,63 @@
+name: Feature request
+description: Propose a capability, shape family, model, or documentation improvement.
+title: "[feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please describe the engineering problem before the solution. SurroSim
+        keeps a closed design space and explicit trust boundaries, so proposals
+        that extend the physics or the shape set need their assumptions stated.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What can you not do today, and who needs it?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: What should exist? CLI command, API endpoint, page, model, or document.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Shape families and design space
+        - Simulation automation
+        - Dataset and provenance
+        - Scalar models
+        - GNN field models
+        - API service
+        - Web app
+        - Desktop shell
+        - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: How we would know it works
+      description: The test, metric, or example that would prove the feature is correct.
+      placeholder: |
+        A new `--shape t_bracket` case that passes the six label gates on 40
+        sampled designs, plus a parity plot in reports/ with MAPE under 3%.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing workarounds, or why a documentation change is not enough.
+    validations:
+      required: false

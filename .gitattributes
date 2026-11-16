@@ -1,0 +1,31 @@
+# Normalise text files to LF in the repository; Windows checkouts stay usable
+# through Git's autocrlf handling.
+* text=auto eol=lf
+
+# Explicit language hints make GitHub's diff and linguist stats accurate.
+*.py        text diff=python
+*.md        text diff=markdown
+*.toml      text
+*.yml       text
+*.yaml      text
+*.json      text
+*.ts        text
+*.tsx       text
+*.css       text
+*.html      text
+*.bat       text eol=crlf
+*.ps1       text eol=crlf
+
+# Generated artefacts and binary payloads: never diff, never convert.
+*.pt        binary
+*.joblib    binary
+*.npz       binary
+*.png       binary
+*.jpg       binary
+*.mp4       binary
+*.webm      binary
+*.woff2     binary
+*.exe       binary
+
+# Lockfiles are generated; keep them out of diffs and review noise.
+package-lock.json -diff linguist-generated

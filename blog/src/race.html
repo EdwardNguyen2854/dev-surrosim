@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SurroSim race</title>
+<style>
+  :root{
+    --paper:#FBFAF7; --ink:#131A20; --ink2:#57636D; --ink3:#8B959C;
+    --rule:#D3D7D9; --grid:#EBECE8; --grid2:#DCDFDA;
+    --blue:#1B4A6E; --amber:#D9822B; --red:#B7382E;
+    --sans:"Segoe UI",Arial,sans-serif;
+    --disp:"Bahnschrift","Segoe UI Semibold",Arial,sans-serif;
+    --mono:"Cascadia Mono",Consolas,monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1280px;height:720px;overflow:hidden;background:#FBFAF7}
+  .stage{position:relative;width:1280px;height:720px;background:#FBFAF7;
+         font-family:var(--sans);color:#131A20}
+  .grid{position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(to right,var(--grid) 1px,transparent 1px),
+      linear-gradient(to bottom,var(--grid) 1px,transparent 1px),
+      linear-gradient(to right,var(--grid2) 1px,transparent 1px),
+      linear-gradient(to bottom,var(--grid2) 1px,transparent 1px);
+    background-size:20px 20px,20px 20px,100px 100px,100px 100px;opacity:.7}
+  .frame{position:absolute;inset:22px;border:1px solid rgba(19,26,32,.10)}
+  .tick{position:absolute;width:9px;height:9px;border:0 solid rgba(19,26,32,.42)}
+  .tl{left:22px;top:22px;border-left-width:1px;border-top-width:1px}
+  .tr{right:22px;top:22px;border-right-width:1px;border-top-width:1px}
+  .bl{left:22px;bottom:22px;border-left-width:1px;border-bottom-width:1px}
+  .br{right:22px;bottom:22px;border-right-width:1px;border-bottom-width:1px}
+  svg{position:absolute;left:0;top:0}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:2px;fill:#57636D}
+  .label{font-family:var(--disp);font-weight:600;letter-spacing:.6px;fill:#131A20}
+  .sub{font-family:var(--sans);fill:#8B959C}
+  .timer{font-family:var(--disp);font-weight:600;fill:#131A20}
+  .mono{font-family:var(--mono);fill:#8B959C}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg width="1280" height="720" viewBox="0 0 1280 720" id="scene"></svg>
+</div>
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+const svg = document.getElementById('scene');
+const holePath = (cx, cy, r) =>
+  `M${cx-r},${cy} a${r},${r} 0 1,0 ${2*r},0 a${r},${r} 0 1,0 ${-2*r},0`;
+
+const field = (() => {
+  const STOPS = [[0,[11,44,74]],[.16,[20,83,140]],[.33,[46,143,168]],[.5,[79,191,165]],
+                 [.66,[242,193,78]],[.82,[224,123,57]],[1,[183,56,46]]];
+  const cm = t => { t = Math.max(0, Math.min(1, t));
+    for (let i = 1; i < STOPS.length; i++){
+      if (t <= STOPS[i][0]){
+        const a = STOPS[i-1], b = STOPS[i], k = (t - a[0]) / (b[0] - a[0]);
+        return a[1].map((c, j) => Math.round(c + (b[1][j] - c) * k));
+      }
+    }
+    return STOPS[5][1];
+  };
+  const W = 900, H = 300, c = document.createElement('canvas');
+  c.width = W; c.height = H;
+  const ctx = c.getContext('2d'), img = ctx.createImageData(W, H), d = img.data;
+  for (let j = 0; j < H; j++) for (let i = 0; i < W; i++){
+    const x = (i+.5)/W*120, y = (j+.5)/H*40, dx = x-60, dy = y-20, r = Math.hypot(dx,dy);
+    const o = (j*W+i)*4;
+    if (r < 6){ d[o+3] = 0; continue; }
+    const base = (120-x)/120, ang = (1-Math.cos(2*Math.atan2(dy,dx)))/2;
+    const s = base*(1 + 2.05*ang*Math.exp(-(r-6)/4.6))*(1 + 0.09*Math.exp(-x/9));
+    const rgb = cm((Math.min(15, Math.floor(s/1.40*16)) + .5) / 16);
+    d[o] = rgb[0]; d[o+1] = rgb[1]; d[o+2] = rgb[2]; d[o+3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  return c.toDataURL('image/png');
+})();
+
+function el(tag, attrs, parent){
+  const n = document.createElementNS(NS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  (parent || svg).appendChild(n);
+  return n;
+}
+function txt(parent, x, y, s, cls, extra = {}){
+  const t = el('text', Object.assign({ x, y, class: cls }, extra), parent);
+  t.textContent = s;
+  return t;
+}
+
+/* ---------- header ---------- */
+const hdr = el('g', {});
+txt(hdr, 72, 82, 'SURROGATE VS SOLVER · SAME PART, SAME QUESTION', 'kicker');
+el('line', { x1:72, y1:96, x2:392, y2:96, stroke:'#131A20', 'stroke-width':1.2, opacity:.5 }, hdr);
+txt(hdr, 1208, 84, '01', 'mono', { 'text-anchor':'end', 'font-size':11, 'letter-spacing':2 });
+txt(hdr, 72, 148, 'One of these takes ten seconds.', 'label', { 'font-size':32 });
+txt(hdr, 72, 186, 'The other takes ten microseconds.', 'label', { 'font-size':32, style:'fill:#8B959C' });
+
+/* ---------- one lane ---------- */
+function lane(y, accent, id, name, detail, meshFirst){
+  const g = el('g', {});
+  const thumbX = 72, thumbW = 196;
+  const inner = el('g', { transform:`translate(${thumbX},${y + 4}) scale(${thumbW/120})` }, g);
+
+  const cp = el('clipPath', { id }, g);
+  const cpPath = document.createElementNS(NS, 'path');
+  cpPath.setAttribute('d', `M0,0 H120 V40 H0 Z ${holePath(60,20,6)}`);
+  cpPath.setAttribute('clip-rule', 'evenodd');
+  cp.appendChild(cpPath);
+
+  const clipG = el('g', { 'clip-path':`url(#${id})` }, inner);
+  const img = el('image', { x:0, y:0, width:120, height:40, preserveAspectRatio:'none',
+                            href:field, opacity: meshFirst ? 0 : 1 }, clipG);
+  let mesh = null;
+  if (meshFirst){
+    const pid = 'm' + id;
+    const pat = el('pattern', { id:pid, width:'8', height:'6.928', patternUnits:'userSpaceOnUse' }, clipG);
+    const mp = document.createElementNS(NS, 'path');
+    mp.setAttribute('d', 'M0,0 L4,6.928 L8,0 M0,6.928 L4,0 L8,6.928');
+    mp.setAttribute('fill', 'none');
+    mp.setAttribute('stroke', '#2E4048');
+    mp.setAttribute('stroke-width', '.1');
+    pat.appendChild(mp);
+    mesh = el('rect', { x:0, y:0, width:120, height:40, fill:`url(#${pid})` }, clipG);
+  }
+  el('path', { d:`M0,0 H120 V40 H0 Z ${holePath(60,20,6)}`, fill:'none',
+               stroke:'#0E1A24', 'stroke-width':'.22', 'fill-rule':'evenodd' }, inner);
+  el('line', { x1:-1.2, y1:-2, x2:-1.2, y2:42, stroke:'#0E1A24', 'stroke-width':'.3' }, inner);
+
+  const x0 = 300, x1 = 1150, trackY = y + 58;
+  txt(g, x0, y + 16, name, 'label', { 'font-size':19 });
+  txt(g, x0, y + 36, detail, 'sub', { 'font-size':12.5 });
+  const timer = txt(g, x1, y + 18, 'waiting', 'timer',
+    { 'text-anchor':'end', 'font-size':21 });
+  el('rect', { x:x0, y:trackY, width:x1-x0, height:7, fill:'#E7E9E6' }, g);
+  const fill = el('rect', { x:x0, y:trackY, width:0, height:7, fill:accent }, g);
+  const head = el('rect', { x:x0-1, y:trackY-5, width:2, height:17, fill:accent, opacity:0 }, g);
+  return { fill, head, timer, img, mesh, x0, x1 };
+}
+
+const A = lane(248, '#B7382E', 'clipA', 'FEA · CALCULIX',
+               'quadratic tet mesh · consistent nodal load · sparse direct solve', true);
+const B = lane(410, '#1B4A6E', 'clipB', 'SURROGATE ENSEMBLE',
+               'shape-conditioned GP + MLP · single forward pass', false);
+
+/* ---------- result strip ---------- */
+const strip = el('g', {});
+el('line', { x1:72, y1:520, x2:1208, y2:520, stroke:'#D3D7D9', 'stroke-width':1 }, strip);
+const stat = (x, v, k) => {
+  txt(strip, x, 576, v, 'timer', { 'font-size':34 });
+  txt(strip, x, 600, k, 'mono', { 'font-size':9.5, 'letter-spacing':1.7 });
+};
+stat(72,  '10.05 s', 'MEDIAN FEA SOLVE');
+stat(320, '10 µs',    'SURROGATE EVALUATION');
+stat(568, '1.74%',    'ROI MAPE · TEST');
+stat(816, '644',      'GATED CASES');
+
+const stamp = el('g', { opacity:0 });
+el('rect', { x:1004, y:548, width:204, height:74, fill:'#FFFFFF', 'fill-opacity':'.6',
+             stroke:'#131A20', 'stroke-width':1.2 }, stamp);
+txt(stamp, 1106, 580, '≈ 10⁶ ×', 'timer', { 'text-anchor':'middle', 'font-size':26 });
+txt(stamp, 1106, 602, 'PER EVALUATION', 'mono', { 'text-anchor':'middle', 'font-size':9, 'letter-spacing':1.8 });
+
+const cover = el('rect', { x:0, y:0, width:1280, height:720, fill:'#FBFAF7', opacity:1 });
+
+/* ---------- timeline ---------- */
+const CYCLE = 9800;
+const clamp = (v) => Math.max(0, Math.min(1, v));
+const smooth = (t) => t < .5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+const SPAN_A = A.x1 - A.x0, SPAN_B = B.x1 - B.x0;
+
+function frame(t){
+  const pB = clamp((t - 300) / 260);
+  B.fill.setAttribute('width', SPAN_B * pB);
+  B.timer.textContent = pB >= 1 ? '10 µs' : (pB > 0 ? '···' : 'waiting');
+
+  const pA = clamp((t - 700) / 6300);
+  const solved = smooth(pA);
+  A.fill.setAttribute('width', SPAN_A * solved);
+  A.timer.textContent = (solved * 10.05).toFixed(2) + ' s';
+  A.head.setAttribute('x', A.x0 + SPAN_A * solved - 1);
+  A.head.setAttribute('opacity', pA > 0 && pA < 1 ? .85 : 0);
+
+  // the FEA thumbnail stays a bare mesh until the solve returns a field
+  const reveal = clamp((t - 7100) / 420);
+  A.img.setAttribute('opacity', reveal);
+  A.mesh.setAttribute('opacity', 1 - 0.75 * reveal);
+
+  const s = clamp((t - 7500) / 520);
+  stamp.setAttribute('opacity', s);
+  stamp.setAttribute('transform', `translate(0,${(1 - s) * 12})`);
+
+  let fade = 0;
+  if (t > 9000) fade = clamp((t - 9000) / 500);
+  if (t < 320) fade = 1 - clamp(t / 320);
+  cover.setAttribute('opacity', fade);
+
+  if (t > 9000){
+    A.fill.setAttribute('width', 0); A.timer.textContent = 'waiting';
+    B.fill.setAttribute('width', 0); B.timer.textContent = 'waiting';
+    A.head.setAttribute('opacity', 0);
+    A.img.setAttribute('opacity', 0);
+    A.mesh.setAttribute('opacity', 1);
+    stamp.setAttribute('opacity', 0);
+  }
+}
+
+const t0 = performance.now();
+function loop(now){
+  frame((now - t0) % CYCLE);
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

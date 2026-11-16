@@ -1,0 +1,10 @@
+[
+  {
+    "name": "mlp",
+    "file": "member_0.pt"
+  },
+  {
+    "name": "gaussian_process",
+    "file": "member_1.joblib"
+  }
+]

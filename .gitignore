@@ -1,0 +1,65 @@
+# --- Python ---------------------------------------------------------------
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+.coverage.*
+htmlcov/
+
+# --- Node -----------------------------------------------------------------
+node_modules/
+blog/.preview/
+blog/.video/
+apps/desktop/release/
+
+# --- Generated run and output directories ---------------------------------
+outputs/
+data/runs/
+data/runs_*/
+data/dataset_smoke/
+data/dataset_smoke_v2/
+data/graphs_v1/
+data/graphs_v2/
+
+# Design tables are generated, except the committed references.
+data/*.csv
+!data/designs_v1.csv
+!data/designs_v2.csv
+
+# Trained weights are generated, except the small committed registries.
+models/**/*.joblib
+models/**/*.pt
+!models/**/*__ensemble/member_0.pt
+!models/**/*__ensemble/member_1.joblib
+!models/gnn/**/*.pt
+# Registries select their best model per target; the compact candidates must
+# ship or a fresh clone cannot load the committed registries.
+!models/scalar/**/models/*__mlp.pt
+!models/scalar/**/models/*__ridge.joblib
+
+# Solver scratch output.
+*.msh
+*.step
+*.frd
+*.dat
+*.sta
+*.cvg
+
+# --- Local tooling --------------------------------------------------------
+# The bundled CalculiX build is large and GPL: it is never redistributed here.
+tools/calculix/
+
+# --- Editor and OS noise --------------------------------------------------
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+*.orig
+*.rej

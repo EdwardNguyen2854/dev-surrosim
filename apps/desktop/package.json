@@ -1,0 +1,38 @@
+{
+  "name": "surrosim-desktop",
+  "private": true,
+  "version": "0.1.0",
+  "description": "SurroSim desktop shell: native window around the local engineering app",
+  "author": "Edward Nguyen",
+  "license": "Apache-2.0",
+  "main": "main.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron .",
+    "smoke": "electron . --smoke",
+    "test:preferences": "node --test tests/preferences.test.cjs",
+    "dist": "electron-builder --win --dir"
+  },
+  "build": {
+    "appId": "com.surrosim.desktop",
+    "productName": "SurroSim",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "splash.html",
+      "assets/**"
+    ],
+    "win": {
+      "target": [
+        "dir"
+      ]
+    }
+  },
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  }
+}

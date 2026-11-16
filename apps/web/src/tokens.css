@@ -1,0 +1,147 @@
+/*
+ * SurroSim web app — semantic mapping of DesignKit's light / black values
+ * (DesignKit BRAND.md). This is the app's single source of design values;
+ * components consume the Tailwind roles that alias these variables.
+ *
+ * Light is the default. Black uses DesignKit's near-black dark canvas;
+ * derived feedback/control values and contrast checks are recorded in DESIGN.md.
+ */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Surfaces */
+  --color-surface-canvas: #f6f8fa;
+  --color-surface-default: #ffffff;
+  --color-surface-subtle: #f1f4f7;
+
+  /* Text */
+  --color-text-primary: #101214;
+  --color-text-muted: #3d444d;
+  --color-text-subtle: #7a838d;
+
+  /* Borders */
+  --color-border-default: #e2e8ee;
+  --color-border-hover: #cbd3db;
+
+  /* Accent (teal) */
+  --color-accent-default: #0081af;
+  --color-accent-muted: #40a0c3;
+  --color-accent-strong: #006b8a;
+  --color-accent-soft: #e6f3f7;
+  --color-accent-soft-hover: #cce6ef;
+  --color-accent-border: #a6d3e3;
+  --color-accent-ink: #004760;
+  --color-accent-deep: #003446;
+
+  --color-link: #2563eb;
+
+  /* Actions */
+  --color-action-primary: #101214;
+  --color-action-primary-hover: #1a1d23;
+  --color-action-primary-text: #ffffff;
+  --color-action-primary-border: #101214;
+  --color-control-thumb: #ffffff;
+
+  /* Focus and selection */
+  --color-focus-ring: #006b8a;
+  --color-selection: #cce6ef;
+
+  /* Semantic feedback */
+  --color-feedback-success: #047857;
+  --color-feedback-success-soft: #ecfdf5;
+  --color-feedback-success-border: rgba(4, 120, 87, 0.3);
+  --color-feedback-warning: #b45309;
+  --color-feedback-warning-soft: #fffbeb;
+  --color-feedback-warning-border: rgba(180, 83, 9, 0.32);
+  --color-feedback-danger: #a31621;
+  --color-feedback-danger-soft: #f9e8e9;
+  --color-feedback-danger-border: rgba(163, 22, 33, 0.3);
+  --color-feedback-info: #006b8a;
+  --color-feedback-info-soft: #e6f3f7;
+
+  /* Translucent band fills for range meters (aliases of the feedback colors). */
+  --color-band-success: rgba(4, 120, 87, 0.22);
+  --color-band-warning: rgba(180, 83, 9, 0.3);
+  --color-band-danger: rgba(163, 22, 33, 0.22);
+  --color-grid-dot: rgba(16, 18, 20, 0.1);
+  --color-overlay-backdrop: rgba(0, 0, 0, 0.45);
+
+  /* Type roles */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Manrope", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Fira Code", Consolas, "Courier New", monospace;
+
+  /* Shape */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  /* Elevation */
+  --shadow-panel: 0 1px 2px rgba(16, 18, 20, 0.05);
+  --shadow-overlay: 0 12px 32px rgba(16, 18, 20, 0.14);
+
+  /* Motion */
+  --motion-standard: 250ms ease;
+
+  /* Desktop shell chrome. The Electron renderer replaces 0 with the height
+     declared in apps/desktop/main.js; browser builds render no title bar. */
+  --title-bar-height: 0px;
+}
+
+[data-theme="black"] {
+  color-scheme: dark;
+
+  --color-surface-canvas: #0a0b0d;
+  --color-surface-default: #101214;
+  --color-surface-subtle: #1a1d23;
+
+  --color-text-primary: #f1f4f7;
+  --color-text-muted: #cbd3db;
+  --color-text-subtle: #9aa4af;
+
+  --color-border-default: #2e353b;
+  --color-border-hover: #7a838d;
+
+  --color-accent-default: #40a0c3;
+  --color-accent-muted: #40a0c3;
+  --color-accent-strong: #a6d3e3;
+  --color-accent-soft: #0a2530;
+  --color-accent-soft-hover: #123746;
+  --color-accent-border: #41778a;
+  --color-accent-ink: #cce6ef;
+  --color-accent-deep: #cce6ef;
+
+  --color-link: #60a5fa;
+
+  --color-action-primary: #1a1d23;
+  --color-action-primary-hover: #2e353b;
+  --color-action-primary-text: #ffffff;
+  --color-action-primary-border: #7a838d;
+  --color-control-thumb: #f1f4f7;
+
+  --color-focus-ring: #a6d3e3;
+  --color-selection: #123746;
+
+  --color-feedback-success: #6ee7b7;
+  --color-feedback-success-soft: #09251c;
+  --color-feedback-success-border: rgba(110, 231, 183, 0.4);
+  --color-feedback-warning: #e8ad6a;
+  --color-feedback-warning-soft: #2b1d0f;
+  --color-feedback-warning-border: rgba(232, 173, 106, 0.4);
+  --color-feedback-danger: #f5a0a8;
+  --color-feedback-danger-soft: #30161c;
+  --color-feedback-danger-border: rgba(245, 160, 168, 0.4);
+  --color-feedback-info: #a6d3e3;
+  --color-feedback-info-soft: #0a2530;
+
+  --color-band-success: rgba(110, 231, 183, 0.22);
+  --color-band-warning: rgba(232, 173, 106, 0.3);
+  --color-band-danger: rgba(245, 160, 168, 0.22);
+  --color-grid-dot: rgba(203, 211, 219, 0.13);
+  --color-overlay-backdrop: rgba(0, 0, 0, 0.7);
+
+  --shadow-panel: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-overlay: 0 12px 32px rgba(0, 0, 0, 0.45);
+}

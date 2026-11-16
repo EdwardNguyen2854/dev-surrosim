@@ -1,0 +1,35 @@
+SurroSim
+Copyright 2026 Edward Nguyen
+
+This product includes software developed by Edward Nguyen
+(https://github.com/EdwardNguyen2854/dev-surrosim).
+
+Attribution requirement
+-----------------------
+
+As required by section 4(d) of the Apache License, Version 2.0, any
+distribution or derivative work must include a readable copy of the
+attribution notices above. In practice this means keeping this NOTICE file
+(and the copyright line in LICENSE) with any copy, fork, or packaged build,
+and keeping the credit visible in the source form or documentation that
+ships with it.
+
+Third-party components
+----------------------
+
+SurroSim builds on third-party software that is distributed under its own
+license. These components are dependencies, not part of this repository's
+source, unless noted otherwise.
+
+- CalculiX (ccx): GNU General Public License v2 or later. SurroSim calls a
+  CalculiX binary that the user installs or provides; the binary is not
+  redistributed in this repository or its Docker image. Source:
+  https://www.calculix.de/
+- Gmsh: GNU General Public License v2 or later, with an additional linking
+  exception. Source: https://gmsh.info/
+- Manrope, Fraunces, and IBM Plex Mono typefaces, vendored as Latin subsets
+  in apps/web/src/assets/fonts and apps/desktop/assets/fonts: SIL Open Font
+  License 1.1. See the README in those directories for per-family notices.
+
+Python and JavaScript dependencies installed through pyproject.toml and the
+package.json files keep their own licenses.

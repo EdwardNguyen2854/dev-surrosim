@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "surrosim"
+version = "0.1.0"
+description = "Trustworthy surrogate modeling for structural finite-element analysis"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{name = "Edward Nguyen"}]
+keywords = [
+  "finite-element-analysis",
+  "surrogate-model",
+  "machine-learning",
+  "meshgraphnet",
+  "calculix",
+  "structural-mechanics",
+  "design-optimization",
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Manufacturing",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = ["numpy>=1.26", "scipy>=1.11"]
+
+[project.optional-dependencies]
+mesh = ["gmsh>=4.13,<5"]
+dev = ["pytest>=8", "pytest-cov>=5", "psutil>=5.9"]
+ml = [
+  "pandas>=2.0", "scikit-learn>=1.4", "xgboost>=2.0", "pyarrow>=15",
+  "torch>=2.2", "matplotlib>=3.8",
+]
+gnn = ["torch>=2.2"]
+app = [
+  "torch>=2.2", "fastapi>=0.110", "uvicorn>=0.29", "plotly>=5.20",
+]
+
+[project.urls]
+Homepage = "https://github.com/EdwardNguyen2854/dev-surrosim"
+Repository = "https://github.com/EdwardNguyen2854/dev-surrosim"
+Issues = "https://github.com/EdwardNguyen2854/dev-surrosim/issues"
+Changelog = "https://github.com/EdwardNguyen2854/dev-surrosim/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/EdwardNguyen2854/dev-surrosim/blob/main/docs/README.md"
+
+[project.scripts]
+surrosim = "surrosim.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "solver: requires real Gmsh and CalculiX binaries",
+]

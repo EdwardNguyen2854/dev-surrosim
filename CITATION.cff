@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use SurroSim in research, teaching, or a published evaluation, please cite it using this metadata."
+title: "SurroSim: trustworthy surrogate models for structural finite-element analysis"
+abstract: >-
+  SurroSim is a reproducible engineering-AI platform that trains fast surrogate
+  models for parametric cantilever families from gated CalculiX finite-element
+  data, and keeps every prediction traceable to validated simulation evidence.
+  It covers design sampling, geometry and meshing, solver automation, dataset
+  gating, scalar and graph-neural-network models, a FastAPI service, and a
+  React engineering application.
+type: software
+authors:
+  - family-names: Nguyen
+    given-names: Edward
+version: 0.1.0
+date-released: 2026-11-16
+license: Apache-2.0
+repository-code: "https://github.com/EdwardNguyen2854/dev-surrosim"
+url: "https://github.com/EdwardNguyen2854/dev-surrosim"
+keywords:
+  - finite element analysis
+  - surrogate modeling
+  - machine learning
+  - structural mechanics
+  - MeshGraphNet
+  - CalculiX
+  - reproducibility
+  - engineering design optimization

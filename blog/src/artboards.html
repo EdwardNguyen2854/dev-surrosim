@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SurroSim blog artboards</title>
+<style>
+  :root{
+    --paper:#FBFAF7;
+    --ink:#131A20;
+    --ink2:#57636D;
+    --ink3:#8B959C;
+    --rule:#D3D7D9;
+    --grid:#EBECE8;
+    --grid2:#DCDFDA;
+    --blue:#1B4A6E;
+    --blue2:#2C7AA6;
+    --amber:#D9822B;
+    --red:#B7382E;
+    --sans:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --disp:"Bahnschrift","Segoe UI Semibold","Arial Narrow",sans-serif;
+    --mono:"Cascadia Mono",Consolas,"Courier New",monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#8d939a;padding:40px;display:flex;flex-direction:column;gap:40px;align-items:flex-start}
+  .board{
+    position:relative;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);overflow:hidden;flex:none;
+  }
+  .board svg{display:block;position:absolute;left:0;top:0}
+  .grid{
+    position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(to right,var(--grid) 1px,transparent 1px),
+      linear-gradient(to bottom,var(--grid) 1px,transparent 1px),
+      linear-gradient(to right,var(--grid2) 1px,transparent 1px),
+      linear-gradient(to bottom,var(--grid2) 1px,transparent 1px);
+    background-size:20px 20px,20px 20px,100px 100px,100px 100px;
+    opacity:.7;
+  }
+  .frame{position:absolute;inset:22px;border:1px solid rgba(19,26,32,.10);pointer-events:none}
+  .tick{position:absolute;width:9px;height:9px;border:0 solid rgba(19,26,32,.42);pointer-events:none}
+  .tick.tl{left:22px;top:22px;border-left-width:1px;border-top-width:1px}
+  .tick.tr{right:22px;top:22px;border-right-width:1px;border-top-width:1px}
+  .tick.bl{left:22px;bottom:22px;border-left-width:1px;border-bottom-width:1px}
+  .tick.br{right:22px;bottom:22px;border-right-width:1px;border-bottom-width:1px}
+
+  .kicker{font-family:var(--mono);font-size:10.5px;letter-spacing:1.9px;fill:var(--ink2)}
+  .h2{font-family:var(--disp);font-weight:600;font-size:24px;fill:var(--ink);letter-spacing:-.2px}
+  .body{font-family:var(--sans);font-size:13px;fill:var(--ink2)}
+  .mono{font-family:var(--mono);fill:var(--ink2)}
+  .num{font-family:var(--disp);font-weight:600;fill:var(--ink)}
+
+  #hero{width:1280px;height:640px}
+  #social{width:1200px;height:630px}
+  #pipeline{width:1200px;height:640px}
+  #shapes{width:1200px;height:470px}
+  #speed{width:1000px;height:440px}
+  #scalar{width:1000px;height:540px}
+  #field{width:1000px;height:470px}
+  #mesh{width:1000px;height:490px}
+  #provenance{width:720px;height:560px}
+</style>
+</head>
+<body>
+
+<section class="board" id="hero" data-shot="hero.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="heroSvg" width="1280" height="640" viewBox="0 0 1280 640"></svg>
+</section>
+
+<section class="board" id="social" data-shot="social-card.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <div id="socialHtml" style="position:absolute;inset:0"></div>
+  <svg id="socialSvg" width="1200" height="630" viewBox="0 0 1200 630"></svg>
+</section>
+
+<section class="board" id="pipeline" data-shot="fig-01-pipeline.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="pipeSvg" width="1200" height="640" viewBox="0 0 1200 640"></svg>
+</section>
+
+<section class="board" id="shapes" data-shot="fig-02-shape-families.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="shapesSvg" width="1200" height="470" viewBox="0 0 1200 470"></svg>
+</section>
+
+<section class="board" id="speed" data-shot="fig-03-speed.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="speedSvg" width="1000" height="440" viewBox="0 0 1000 440"></svg>
+</section>
+
+<section class="board" id="scalar" data-shot="fig-04-scalar-accuracy.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="scalarSvg" width="1000" height="540" viewBox="0 0 1000 540"></svg>
+</section>
+
+<section class="board" id="field" data-shot="fig-05-field-accuracy.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="fieldSvg" width="1000" height="470" viewBox="0 0 1000 470"></svg>
+</section>
+
+<section class="board" id="mesh" data-shot="fig-06-mesh-convergence.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="meshSvg" width="1000" height="490" viewBox="0 0 1000 490"></svg>
+</section>
+
+<section class="board" id="provenance" data-shot="fig-07-provenance.png">
+  <div class="grid"></div><div class="frame"></div>
+  <div class="tick tl"></div><div class="tick tr"></div><div class="tick bl"></div><div class="tick br"></div>
+  <svg id="provSvg" width="720" height="560" viewBox="0 0 720 560"></svg>
+</section>
+
+<script>
+/* ============================================================
+   Analytic von Mises field (illustrative, not solver output).
+   Plate 120 x 40 mm, hole d = 12 mm at mid-span, clamped at x = 0.
+   ============================================================ */
+const STOPS = [
+  [0.00,[ 11, 44, 74]],
+  [0.16,[ 20, 83,140]],
+  [0.33,[ 46,143,168]],
+  [0.50,[ 79,191,165]],
+  [0.66,[242,193, 78]],
+  [0.82,[224,123, 57]],
+  [1.00,[183, 56, 46]]
+];
+function cmap(t){
+  t = Math.max(0, Math.min(1, t));
+  for (let i = 1; i < STOPS.length; i++){
+    if (t <= STOPS[i][0]){
+      const a = STOPS[i-1], b = STOPS[i];
+      const k = (t - a[0]) / (b[0] - a[0]);
+      return a[1].map((c, j) => Math.round(c + (b[1][j] - c) * k));
+    }
+  }
+  return STOPS[STOPS.length-1][1];
+}
+function fieldValue(x, y){
+  const dx = x - 60, dy = y - 20;
+  const d = Math.hypot(dx, dy);
+  if (d < 6) return -1;
+  const base = (120 - x) / 120;
+  const th = Math.atan2(dy, dx);
+  const ang = (1 - Math.cos(2 * th)) / 2;
+  const conc = 1 + 2.05 * ang * Math.exp(-(d - 6) / 4.6);
+  let s = base * conc;
+  s *= 1 + 0.09 * Math.exp(-x / 9);
+  return s;
+}
+function makeField(w, h, NB = 16){
+  const c = document.createElement('canvas');
+  c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  const img = ctx.createImageData(w, h);
+  const d = img.data;
+  const band = new Int16Array(w * h);
+  const MAX = 1.40;
+  for (let j = 0; j < h; j++){
+    const y = (j + 0.5) / h * 40;
+    for (let i = 0; i < w; i++){
+      const x = (i + 0.5) / w * 120;
+      const s = fieldValue(x, y);
+      band[j*w+i] = s < 0 ? -1 : Math.min(NB - 1, Math.floor((s / MAX) * NB));
+    }
+  }
+  for (let j = 0; j < h; j++){
+    for (let i = 0; i < w; i++){
+      const k = j * w + i, o = k * 4, b = band[k];
+      if (b < 0){ d[o+3] = 0; continue; }
+      const rgb = cmap((b + 0.5) / NB);
+      d[o] = rgb[0]; d[o+1] = rgb[1]; d[o+2] = rgb[2]; d[o+3] = 255;
+      const r = i + 1 < w ? band[k+1] : b;
+      const dn = j + 1 < h ? band[k+w] : b;
+      if (r >= 0 && dn >= 0 && (r !== b || dn !== b)){
+        d[o]   = Math.min(255, rgb[0] + 40);
+        d[o+1] = Math.min(255, rgb[1] + 40);
+        d[o+2] = Math.min(255, rgb[2] + 40);
+      }
+    }
+  }
+  ctx.putImageData(img, 0, 0);
+  return c.toDataURL('image/png');
+}
+const FIELD = makeField(1800, 600);
+
+/* ---------- helpers ---------- */
+function holePath(cx, cy, r){
+  return `M${cx-r},${cy} a${r},${r} 0 1,0 ${2*r},0 a${r},${r} 0 1,0 ${-2*r},0`;
+}
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function T(cls, x, y, s, opts = {}){
+  const a = [`class="${cls}"`, `x="${x}"`, `y="${y}"`];
+  if (opts.a) a.push(`text-anchor="${opts.a}"`);
+  if (opts.size) a.push(`font-size="${opts.size}"`);
+  if (opts.ls) a.push(`letter-spacing="${opts.ls}"`);
+  if (opts.fill) a.push(`style="fill:${opts.fill}"`);
+  return `<text ${a.join(' ')}>${esc(s)}</text>`;
+}
+const hatchDef = (id, size = 6, sw = 1.1) => `
+  <pattern id="${id}" width="${size}" height="${size}" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <line x1="0" y1="0" x2="0" y2="${size}" stroke="#131A20" stroke-width="${sw}" opacity=".5"/>
+  </pattern>`;
+const loadSym = (x, y, r = 11) => `
+  <circle cx="${x}" cy="${y}" r="${r}" fill="#FBFAF7" stroke="#B7382E" stroke-width="1.8"/>
+  <path d="M${x-r*0.62},${y-r*0.62} L${x+r*0.62},${y+r*0.62} M${x+r*0.62},${y-r*0.62} L${x-r*0.62},${y+r*0.62}"
+        stroke="#B7382E" stroke-width="1.8"/>`;
+
+/* ============================================================
+   1. HERO — perforated cantilever, plane view
+   ============================================================ */
+(function hero(){
+  const S = 7.4, LEFT = 92, TOP = 48;
+  const OX = LEFT + 12 * S, OY = TOP + 12 * S;
+  const bx = (x) => OX + x * S;
+  const by = (y) => OY + y * S;
+
+  const drawing = `
+    <defs>
+      ${hatchDef('hz', 1.8, .11)}
+      <clipPath id="pclip"><path d="M0,0 H120 V40 H0 Z ${holePath(60,20,6)}" clip-rule="evenodd"/></clipPath>
+      <pattern id="tmesh" width="4" height="3.464" patternUnits="userSpaceOnUse">
+        <path d="M0,0 L2,3.464 L4,0 M0,3.464 L2,0 L4,3.464" fill="none"
+              stroke="#0B1A24" stroke-width=".045"/>
+        <line x1="0" y1="0" x2="4" y2="0" stroke="#0B1A24" stroke-width=".045"/>
+      </pattern>
+      <linearGradient id="rb" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#0B2E4A"/><stop offset=".16" stop-color="#14538C"/>
+        <stop offset=".33" stop-color="#2E8FA8"/><stop offset=".5" stop-color="#4FBFA5"/>
+        <stop offset=".66" stop-color="#F2C14E"/><stop offset=".82" stop-color="#E07B39"/>
+        <stop offset="1" stop-color="#B7382E"/>
+      </linearGradient>
+    </defs>
+
+    <g clip-path="url(#pclip)">
+      <image x="0" y="0" width="120" height="40" preserveAspectRatio="none" href="${FIELD}"/>
+      <rect x="0" y="0" width="120" height="40" fill="url(#tmesh)" opacity=".32"/>
+    </g>
+    <path d="M0,0 H120 V40 H0 Z ${holePath(60,20,6)}" fill="none" stroke="#0E1A24"
+          stroke-width=".23" fill-rule="evenodd"/>
+
+    <clipPath id="clampClip"><rect x="-7" y="-2" width="7" height="44"/></clipPath>
+    <g clip-path="url(#clampClip)">
+      ${Array.from({ length: 30 }, (_, i) => {
+        const y = -10 + i * 1.7;
+        return `<line x1="-8" y1="${y.toFixed(2)}" x2="1" y2="${(y + 9).toFixed(2)}"
+                      stroke="#131A20" stroke-width=".1"/>`;
+      }).join('')}
+    </g>
+    <line x1="0" y1="-2" x2="0" y2="42" stroke="#0E1A24" stroke-width=".32"/>
+
+    <circle cx="60" cy="20" r="9" fill="none" stroke="#FBFAF7" stroke-width=".16"
+            stroke-dasharray=".42 .38"/>
+    <path d="M60,11 L60,2.5 L74,-5" fill="none" stroke="#131A20" stroke-width=".12"/>
+    <circle cx="60" cy="11" r=".85" fill="#131A20"/>
+    <path d="M60,29 L60,44" fill="none" stroke="#131A20" stroke-width=".12"/>
+    <circle cx="60" cy="29" r=".8" fill="#131A20"/>
+    <path d="M120.4,20 L124.1,20" fill="none" stroke="#B7382E" stroke-width=".12" stroke-dasharray=".45 .4"/>
+
+    <line x1="0" y1="42" x2="0" y2="50.6" stroke="#8B959C" stroke-width=".11"/>
+    <line x1="120" y1="42" x2="120" y2="50.6" stroke="#8B959C" stroke-width=".11"/>
+    <line x1="0" y1="49" x2="120" y2="49" stroke="#57636D" stroke-width=".11"/>
+    <path d="M0,49 l0.62,-0.24 v0.48 Z" fill="#57636D"/>
+    <path d="M120,49 l-0.62,-0.24 v0.48 Z" fill="#57636D"/>
+
+    <line x1="-10.4" y1="0" x2="-4" y2="0" stroke="#8B959C" stroke-width=".11"/>
+    <line x1="-10.4" y1="40" x2="-4" y2="40" stroke="#8B959C" stroke-width=".11"/>
+    <line x1="-9.4" y1="0" x2="-9.4" y2="40" stroke="#57636D" stroke-width=".11"/>
+    <path d="M-9.4,0 l-0.24,0.62 h0.48 Z" fill="#57636D"/>
+    <path d="M-9.4,40 l-0.24,-0.62 h0.48 Z" fill="#57636D"/>
+
+    <rect x="0" y="54" width="34" height="3.4" fill="url(#rb)" stroke="#131A20" stroke-width=".14"/>
+  `;
+
+  document.getElementById('heroSvg').innerHTML = `
+    <g transform="translate(${OX},${OY}) scale(${S})">${drawing}</g>
+
+    ${T('kicker', 92, 78, 'VON MISES STRESS · PERFORATED CANTILEVER', {ls:'2'})}
+    <line x1="92" y1="90" x2="392" y2="90" stroke="#131A20" stroke-width="1.2" opacity=".5"/>
+    ${T('mono', 1188, 78, 'FIG. 00', {a:'end', size:'10.5', ls:'2', fill:'#8B959C'})}
+
+    ${T('mono', bx(0) - 8, by(-4.6), 'CLAMPED', {a:'end', size:'9.5', ls:'1.6', fill:'#8B959C'})}
+    ${`<text class="mono" x="${bx(-9.4) - 15}" y="${by(20)}" font-size="11.5" fill="#57636D"
+        text-anchor="middle" transform="rotate(-90 ${bx(-9.4) - 15} ${by(20)})">40 mm</text>`}
+    ${T('mono', bx(60), by(49) + 19, '120 mm', {a:'middle', size:'11.5', fill:'#57636D'})}
+    ${T('mono', bx(62.5), by(45.2) + 4, '⌀ 12 mm', {size:'11', fill:'#57636D'})}
+
+    ${T('mono', bx(75), by(-6) - 8, 'REGION OF INTEREST · 1.5 d', {size:'9.5', ls:'1.4', fill:'#8B959C'})}
+    ${T('num', bx(75), by(-6) + 12, '270.8 MPa', {size:'16'})}
+    ${T('mono', bx(75), by(-6) + 27, 'peak von Mises in the hole region', {size:'9.5', fill:'#8B959C'})}
+
+    ${loadSym(bx(126), by(20), 12)}
+    ${T('num', bx(130), by(20) - 4, 'F = 500 N', {size:'15'})}
+    ${T('mono', bx(130), by(20) + 10, 'total force, −Z', {size:'9.5', fill:'#8B959C'})}
+
+    ${T('mono', bx(0), by(60), '0', {size:'9', fill:'#8B959C'})}
+    ${T('mono', bx(11.33), by(60), '90', {a:'middle', size:'9', fill:'#8B959C'})}
+    ${T('mono', bx(22.67), by(60), '180', {a:'middle', size:'9', fill:'#8B959C'})}
+    ${T('mono', bx(34), by(60), '270', {a:'end', size:'9', fill:'#8B959C'})}
+    ${T('mono', bx(38), by(60), 'σ vm, MPa', {size:'9.5', ls:'1.2', fill:'#57636D'})}
+    ${T('mono', 1188, by(60), 'C3D10 · hole-graded 1.2 mm · steel, E 210 GPa · ν 0.3',
+         {a:'end', size:'9.5', fill:'#8B959C'})}
+  `;
+})();
+
+/* ============================================================
+   2. SOCIAL CARD
+   ============================================================ */
+(function social(){
+  document.getElementById('socialHtml').innerHTML = `
+    <div style="position:absolute;left:68px;top:74px">
+      <div style="font-family:var(--mono);font-size:11px;letter-spacing:2.4px;color:var(--ink2)">
+        SURROGATE MODELS · STRUCTURAL FEA</div>
+      <div style="font-family:var(--disp);font-weight:600;font-size:64px;line-height:1.02;
+                  letter-spacing:-1.4px;margin-top:26px">
+        The solver,<br>in microseconds<span style="color:var(--amber)">.</span></div>
+      <div style="font-size:17px;line-height:1.55;color:var(--ink2);margin-top:26px;max-width:540px">
+        SurroSim predicts stress and displacement for parametric cantilevers.<br>
+        Gated, validated, and traceable back to the mesh.</div>
+    </div>
+    <div style="position:absolute;left:68px;bottom:66px;display:flex;width:540px;
+                border-top:1px solid var(--rule);padding-top:18px">
+      <div style="flex:1">
+        <div style="font-family:var(--disp);font-weight:600;font-size:32px">1.85%</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--ink3);margin-top:7px">
+          MEDIAN TEST ERROR</div>
+      </div>
+      <div style="flex:1;border-left:1px solid var(--rule);padding-left:24px">
+        <div style="font-family:var(--disp);font-weight:600;font-size:32px">10⁶×</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--ink3);margin-top:7px">
+          FASTER THAN FEA</div>
+      </div>
+      <div style="flex:1;border-left:1px solid var(--rule);padding-left:24px">
+        <div style="font-family:var(--disp);font-weight:600;font-size:32px">644</div>
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:1.5px;color:var(--ink3);margin-top:7px">
+          GATED CASES</div>
+      </div>
+    </div>`;
+
+  const PS = 3.6, PX = 646, PY = 232;
+  document.getElementById('socialSvg').innerHTML = `
+    <defs><clipPath id="sc"><path d="M0,0 H140 V40 H0 Z ${holePath(70,20,6)}" clip-rule="evenodd"/></clipPath></defs>
+    <g transform="translate(${PX},${PY}) scale(${PS})">
+      <g clip-path="url(#sc)">
+        <image x="0" y="0" width="140" height="40" preserveAspectRatio="none" href="${FIELD}"/>
+      </g>
+      <path d="M0,0 H140 V40 H0 Z ${holePath(70,20,6)}" fill="none" stroke="#0E1A24"
+            stroke-width=".13" fill-rule="evenodd"/>
+      <line x1="-1.1" y1="-2" x2="-1.1" y2="42" stroke="#0E1A24" stroke-width=".3"/>
+    </g>
+    <text class="mono" x="${PX}" y="${PY + 40 * PS + 34}" font-size="9" letter-spacing="1.8" fill="#8B959C">
+      VON MISES σ · PLANE VIEW · CANTILEVER 120 × 40 mm</text>
+  `;
+})();
+
+/* ============================================================
+   3. PIPELINE
+   ============================================================ */
+(function pipeline(){
+  const stages = [
+    {n:'01', t:'SAMPLE',  d:['Shape registry +','Sobol / LHS'], a:'designs_v2.csv',
+     icon:`<rect x="4" y="6" width="24" height="26" rx="1.5"/><line x1="4" y1="13" x2="28" y2="13"/>
+           <line x1="10" y1="19" x2="22" y2="19"/><line x1="10" y1="25" x2="22" y2="25"/>`},
+    {n:'02', t:'MESH',    d:['Gmsh OCC tetrahedra,','quadratic, riser-graded'], a:'.msh + quality',
+     icon:`<path d="M16,4 L28,26 L4,26 Z"/><path d="M16,4 L11,18 L21,18 Z"/><line x1="11" y1="18" x2="4" y2="26"/>
+           <line x1="21" y1="18" x2="28" y2="26"/>`},
+    {n:'03', t:'SOLVE',   d:['CalculiX deck,','total-force load'], a:'.frd fields',
+     icon:`<circle cx="16" cy="16" r="11"/><path d="M16,9 L16,17 L22,21"/>`},
+    {n:'04', t:'GATE',    d:['Six label gates,','failures quarantined'], a:'dataset_v2',
+     icon:`<path d="M4,5 H28 L18,17 V27 L14,23 V17 Z"/><line x1="9" y1="10" x2="23" y2="10"/>`},
+    {n:'05', t:'TRAIN',   d:['GP + MLP ensemble,','MeshGraphNet'], a:'models/ + metrics',
+     icon:`<circle cx="7" cy="8" r="3"/><circle cx="7" cy="24" r="3"/><circle cx="16" cy="16" r="3"/>
+           <circle cx="26" cy="7" r="3"/><circle cx="26" cy="25" r="3"/>
+           <line x1="10" y1="9" x2="13" y2="14"/><line x1="10" y1="23" x2="13" y2="18"/>
+           <line x1="19" y1="15" x2="23" y2="9"/><line x1="19" y1="17" x2="23" y2="23"/>`},
+    {n:'06', t:'SERVE',   d:['FastAPI + jobs,','confidence / OOD'], a:'web app + desktop',
+     icon:`<rect x="3" y="6" width="26" height="20" rx="2"/><line x1="3" y1="12" x2="29" y2="12"/>
+           <circle cx="6.5" cy="9" r=".9" fill="currentColor"/><circle cx="10" cy="9" r=".9" fill="currentColor"/>
+           <path d="M8,17 L12,21 L20,16"/>`}
+  ];
+  const cw = 164, gap = 21, x0 = 56, top = 148;
+  let out = `
+    ${T('kicker', 56, 74, 'THE PIPELINE · SIMULATION → DATASET → MODEL → SERVICE')}
+    ${T('h2', 56, 112, 'Six stages, every one of them auditable', {size:'27'})}`;
+
+  stages.forEach((s, i) => {
+    const x = x0 + i * (cw + gap);
+    out += `<g transform="translate(${x},${top})">
+      <rect x="0" y="0" width="${cw}" height="248" rx="2" fill="#FFFFFF" fill-opacity=".55"
+            stroke="#D3D7D9" stroke-width="1"/>
+      <g transform="translate(16,16)" fill="none" stroke="#1B4A6E" stroke-width="1.45"
+         stroke-linecap="round" stroke-linejoin="round" color="#1B4A6E">${s.icon}</g>
+      <text class="mono" x="${cw - 15}" y="32" font-size="10" letter-spacing="1.6"
+            fill="#8B959C" text-anchor="end">${s.n}</text>
+      <text class="num" x="16" y="86" font-size="16" letter-spacing="1.4">${s.t}</text>
+      <text class="body" x="16" y="112" font-size="12" fill="#57636D">${s.d[0]}</text>
+      <text class="body" x="16" y="129" font-size="12" fill="#57636D">${s.d[1]}</text>
+      <line x1="16" y1="196" x2="${cw - 16}" y2="196" stroke="#D3D7D9" stroke-width="1"/>
+      <text class="mono" x="16" y="219" font-size="9" fill="#2C7AA6">${s.a}</text>
+    </g>`;
+    if (i < stages.length - 1){
+      const ax = x + cw + 6;
+      out += `<path d="M${ax},${top + 118} l9,7 l-9,7" fill="none" stroke="#B7382E"
+                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    }
+  });
+
+  out += `
+    <line x1="56" y1="448" x2="1144" y2="448" stroke="#D3D7D9" stroke-width="1"/>
+    ${T('mono', 56, 480, 'PROVENANCE', {size:'10', ls:'1.8', fill:'#8B959C'})}
+    ${T('body', 150, 480, 'Every artifact records the SHA-256 of its inputs and the git commit that produced it.',
+         {size:'12.5'})}
+    ${(() => {
+      const chain = ['prediction', 'model metadata', 'dataset sha256', 'designs sha256', 'run.json', 'geometry metadata'];
+      let s = '', cx = 56;
+      chain.forEach((c, i) => {
+        const w = c.length * 6.5 + 20;
+        s += `<rect x="${cx}" y="502" width="${w}" height="26" rx="1.5"
+                fill="#FFFFFF" fill-opacity=".7" stroke="#C9CED1" stroke-width="1"/>
+              <text class="mono" x="${cx + 10}" y="519" font-size="9.6" fill="#57636D">${c}</text>`;
+        cx += w;
+        if (i < chain.length - 1){
+          s += `<path d="M${cx + 3},515 l6,-3.6 v7.2 Z" fill="#8B959C"/>`;
+          cx += 14;
+        }
+      });
+      return s;
+    })()}
+    ${T('mono', 1144, 590, 'Any prediction traces back to the mesh, deck and solver log that validated it.',
+         {a:'end', size:'9.5', fill:'#8B959C'})}
+  `;
+  document.getElementById('pipeSvg').innerHTML = out;
+})();
+
+/* ============================================================
+   4. SHAPE FAMILIES
+   ============================================================ */
+(function shapes(){
+  const clampAt = (x, y0 = 26, y1 = 70) => `
+    <rect x="${x - 6}" y="${y0 - 2}" width="6" height="${y1 - y0 + 4}" fill="url(#sh)"/>
+    <line x1="${x}" y1="${y0 - 2}" x2="${x}" y2="${y1 + 2}" stroke="currentColor" stroke-width="1.3"/>`;
+  const loadAt = (x, y) => `
+    <circle cx="${x}" cy="${y}" r="6.5" fill="#FBFAF7" stroke="#B7382E" stroke-width="1.3"/>
+    <path d="M${x-3.4},${y-3.4} L${x+3.4},${y+3.4} M${x+3.4},${y-3.4} L${x-3.4},${y+3.4}"
+          stroke="#B7382E" stroke-width="1.3"/>`;
+
+  const cells = [
+    {t:'PLATE', v:'PLAN', p:'L · W · T · d', draw:`
+       <rect x="14" y="26" width="112" height="44" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <circle cx="70" cy="48" r="9" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <circle cx="70" cy="48" r="14" fill="none" stroke="#B7382E" stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+       ${clampAt(14)} ${loadAt(126, 48)}`},
+    {t:'MULTI_HOLE', v:'PLAN', p:'L · W · T · d · s', draw:`
+       <rect x="14" y="26" width="112" height="44" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <circle cx="52" cy="48" r="8" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <circle cx="88" cy="48" r="8" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <circle cx="52" cy="48" r="12.5" fill="none" stroke="#B7382E" stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+       <circle cx="88" cy="48" r="12.5" fill="none" stroke="#B7382E" stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+       ${clampAt(14)} ${loadAt(126, 48)}`},
+    {t:'TAPER', v:'PLAN', p:'L · W₀ · W₁ · T', draw:`
+       <path d="M14,22 L126,32 L126,64 L14,74 Z" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <circle cx="70" cy="48" r="7.5" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <circle cx="70" cy="48" r="12" fill="none" stroke="#B7382E" stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+       ${clampAt(14, 22, 74)} ${loadAt(126, 48)}`},
+    {t:'STEPPED', v:'ELEVATION', p:'L · T₁ · T₂ · x', draw:`
+       <path d="M14,26 H74 V32 A6,6 0 0 0 80,38 H126 V74 H14 Z" fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <path d="M74,29 A9,9 0 0 0 83,38" fill="none" stroke="#B7382E" stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+       ${clampAt(14, 26, 74)} ${loadAt(132, 56)}`},
+    {t:'I_BEAM', v:'SECTION', p:'h · b · t_w · t_f', draw:`
+       <path d="M22,20 H110 V30 H84 V66 H110 V76 H22 V66 H48 V30 H22 Z"
+             fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <path d="M48,36 A7,7 0 0 0 41,29 M84,36 A7,7 0 0 1 91,29
+                M48,60 A7,7 0 0 1 41,67 M84,60 A7,7 0 0 0 91,67"
+             fill="none" stroke="#B7382E" stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+       ${loadAt(132, 48)}`},
+    {t:'L_BRACKET', v:'ELEVATION', p:'legs · t · r', draw:`
+       <path d="M30,16 H50 V44 A10,10 0 0 0 60,54 H126 V80 H30 Z"
+             fill="none" stroke="currentColor" stroke-width="1.3"/>
+       <path d="M48,44 A12,12 0 0 0 60,56" fill="none" stroke="#B7382E"
+             stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+       ${clampAt(30, 16, 80)} ${loadAt(40, 8)}`}
+  ];
+
+  const cw = 170, gap = 14, x0 = 56, top = 132;
+  let out = `
+    <defs>${hatchDef('sh', 5, 1.1)}</defs>
+    ${T('kicker', 56, 70, 'ENGINEERING SCOPE · SIX PARAMETRIC CANTILEVER FAMILIES')}
+    ${T('h2', 56, 106, 'One load case, one mesh policy, six shapes', {size:'27'})}`;
+
+  cells.forEach((c, i) => {
+    const x = x0 + i * (cw + gap);
+    out += `<g transform="translate(${x},${top})" color="#131A20">
+      <rect x="0" y="0" width="${cw}" height="196" rx="2" fill="#FFFFFF" fill-opacity=".5"
+            stroke="#D3D7D9" stroke-width="1"/>
+      <svg x="0" y="14" width="${cw}" height="112" viewBox="0 0 140 96">${c.draw}</svg>
+      <line x1="16" y1="152" x2="${cw - 16}" y2="152" stroke="#D3D7D9" stroke-width="1"/>
+      <text class="num" x="16" y="172" font-size="12.5" letter-spacing="1.2">${c.t}</text>
+      <text class="mono" x="16" y="187" font-size="8" fill="#8B959C">${c.v} · ${c.p}</text>
+    </g>`;
+  });
+
+  out += `
+    <line x1="56" y1="366" x2="1144" y2="366" stroke="#D3D7D9" stroke-width="1"/>
+    <g transform="translate(56,392)">
+      ${loadAt(7, 7)}
+      ${T('mono', 26, 11, 'TOTAL FORCE AT THE FREE END', {size:'9.5'})}
+      <rect x="274" y="0" width="6" height="16" fill="url(#sh)"/>
+      <line x1="280" y1="0" x2="280" y2="16" stroke="#131A20" stroke-width="1.3"/>
+      ${T('mono', 294, 11, 'FULLY CLAMPED', {size:'9.5'})}
+      <circle cx="452" cy="8" r="9" fill="none" stroke="#B7382E" stroke-width=".9" stroke-dasharray="2.6 2.4"/>
+      ${T('mono', 470, 11, 'STRESS-RISER REGION OF INTEREST', {size:'9.5'})}
+    </g>
+    ${T('mono', 1144, 403, 'Linear elastic steel · E 210 GPa · ν 0.3 · ρ 7850 kg/m³',
+         {a:'end', size:'9', fill:'#8B959C'})}
+  `;
+  document.getElementById('shapesSvg').innerHTML = out;
+})();
+
+/* ============================================================
+   5. SPEED
+   ============================================================ */
+(function speed(){
+  const x0 = 110, x1 = 900, y = 230;
+  const lo = -6, hi = 2.4;
+  const X = (v) => x0 + (Math.log10(v) - lo) / (hi - lo) * (x1 - x0);
+  const labels = {[-6]:'1 µs', [-5]:'10 µs', [-4]:'100 µs', [-3]:'1 ms', [-2]:'10 ms',
+                  [-1]:'100 ms', [0]:'1 s', 1:'10 s', 2:'100 s'};
+  let ticks = '';
+  for (let e = lo; e <= 2; e++){
+    const px = X(Math.pow(10, e));
+    const major = labels[e] !== undefined;
+    ticks += `<line x1="${px}" y1="${y - (major ? 22 : 10)}" x2="${px}" y2="${y + 22}"
+                    stroke="#C9CED1" stroke-width="${major ? 1.2 : 1}"/>
+              <circle cx="${px}" cy="${y}" r="${major ? 3.2 : 2}" fill="${major ? '#57636D' : '#AEB5BA'}"/>`;
+    if (major) ticks += T('mono', px, y + 40, labels[e], {a:'middle', size:'10.5', fill:'#8B959C'});
+  }
+
+  const feaX = X(10.05), surX = X(1e-5), midX = (surX + feaX) / 2;
+  document.getElementById('speedSvg').innerHTML = `
+    ${T('kicker', 56, 66, 'COST PER EVALUATION · LOG SCALE, SECONDS')}
+    ${T('h2', 56, 102, 'Ten seconds of solver, or ten microseconds', {size:'26'})}
+
+    <line x1="${x0}" y1="${y}" x2="${x1}" y2="${y}" stroke="#57636D" stroke-width="1.4"/>
+    ${ticks}
+
+    <line x1="${surX}" y1="${y}" x2="${surX}" y2="${y - 66}" stroke="#1B4A6E" stroke-width="1.6"/>
+    <circle cx="${surX}" cy="${y - 66}" r="6" fill="#1B4A6E"/>
+    ${T('num', surX, y - 88, '10 µs', {a:'middle', size:'22'})}
+    ${T('mono', surX + 14, y - 72, 'SURROGATE ENSEMBLE', {size:'9.5', ls:'1.4', fill:'#8B959C'})}
+
+    <line x1="${feaX}" y1="${y}" x2="${feaX}" y2="${y - 34}" stroke="#B7382E" stroke-width="1.6"/>
+    <circle cx="${feaX}" cy="${y - 34}" r="6" fill="#B7382E"/>
+    ${T('num', feaX, y - 56, '10.05 s', {a:'middle', size:'22'})}
+    ${T('mono', feaX, y - 40, 'FEA · CALCULIX', {a:'middle', size:'9.5', ls:'1.4', fill:'#8B959C'})}
+
+    <path d="M${surX},${y + 66} L${surX},${y + 80} L${feaX},${y + 80} L${feaX},${y + 66}"
+          fill="none" stroke="#131A20" stroke-width="1.1"/>
+    <path d="M${feaX},${y + 66} l-4.5,7 h9 Z" fill="#131A20"/>
+    <path d="M${surX},${y + 66} l-4.5,-7 h9 Z" fill="#131A20"/>
+    ${T('num', midX, y + 58, '≈ 10⁶ × per evaluation', {a:'middle', size:'15'})}
+
+    ${T('body', 56, y + 128, 'Median of 644 gated CalculiX solves versus one forward pass of the', {size:'12.5'})}
+    ${T('body', 56, y + 145, 'shape-conditioned ensemble on the same CPU.', {size:'12.5'})}
+    ${T('mono', 944, y + 145, 'source: reports/v0.4', {a:'end', size:'9.5', fill:'#8B959C'})}
+  `;
+})();
+
+/* ============================================================
+   6. SCALAR ACCURACY
+   ============================================================ */
+(function scalar(){
+  const data = [
+    {label:'Max displacement', test:1.85, chal:5.39},
+    {label:'Global max σ vm',  test:2.30, chal:6.73},
+    {label:'ROI max σ vm',     test:1.74, chal:6.14}
+  ];
+  const px0 = 250, px1 = 870, per = (px1 - px0) / 7;
+  const top = 168, rowH = 96;
+  let g = '';
+  for (let v = 0; v <= 7; v++){
+    const x = px0 + v * per;
+    g += `<line x1="${x}" y1="${top}" x2="${x}" y2="${top + rowH * 3 - 22}"
+                stroke="${v === 0 ? '#8B959C' : '#E3E6E4'}" stroke-width="1"/>
+          ${T('mono', x, top + rowH * 3 - 4, v + '%', {a:'middle', size:'10', fill:'#8B959C'})}`;
+  }
+  data.forEach((d, i) => {
+    const cy = top + rowH * i + 34;
+    g += T('body', px0 - 20, cy + 4, d.label, {a:'end', size:'13.5'});
+    [[d.test, '#1B4A6E', -13], [d.chal, '#D9822B', 5]].forEach(([v, col, dy]) => {
+      const w = v * per;
+      g += `<rect x="${px0}" y="${cy + dy}" width="${w}" height="15" fill="${col}"/>
+            ${T('mono', px0 + w + 9, cy + dy + 12, v.toFixed(2) + '%', {size:'10.5', fill:'#57636D'})}`;
+    });
+  });
+  const bx = px0 + 3.56 * per;
+  g += `<line x1="${bx}" y1="${top - 18}" x2="${bx}" y2="${top + rowH * 3 - 22}"
+              stroke="#B7382E" stroke-width="1.1" stroke-dasharray="5 4"/>
+        ${T('mono', bx + 9, top - 24, 'Euler–Bernoulli baseline 3.56%', {size:'9.5', fill:'#B7382E'})}`;
+
+  document.getElementById('scalarSvg').innerHTML = `
+    ${T('kicker', 56, 66, 'SCALAR SURROGATE · TEST AND CHALLENGE SPLITS')}
+    ${T('h2', 56, 102, 'Where the ensemble lands, target by target', {size:'26'})}
+    <g transform="translate(620,56)">
+      <rect x="0" y="0" width="12" height="12" fill="#1B4A6E"/>
+      ${T('mono', 20, 10, 'TEST (MAPE)', {size:'9.5', ls:'1.2'})}
+      <rect x="132" y="0" width="12" height="12" fill="#D9822B"/>
+      ${T('mono', 152, 10, 'CHALLENGE (OUTER 10%)', {size:'9.5', ls:'1.2'})}
+    </g>
+    ${g}
+    ${T('body', 56, 502, 'The 84 challenge cases sit in the outer 10% band of every factor and were never used for fitting or model selection.',
+         {size:'12.5'})}
+    ${T('mono', 892, 502, 'source: reports/v0.4', {a:'end', size:'9.5', fill:'#8B959C'})}
+  `;
+})();
+
+/* ============================================================
+   7. FIELD ACCURACY
+   ============================================================ */
+(function fieldChart(){
+  const data = [
+    {g:'MeshGraphNet', test:2.63, chal:9.14},
+    {g:'Per-node MLP', test:10.47, chal:28.24}
+  ];
+  const px0 = 210, px1 = 836, per = (px1 - px0) / 30;
+  const top = 176, rowH = 110;
+  let g = '';
+  for (let v = 0; v <= 30; v += 5){
+    const x = px0 + v * per;
+    g += `<line x1="${x}" y1="${top}" x2="${x}" y2="${top + rowH * 2 - 26}"
+                stroke="${v === 0 ? '#8B959C' : '#E3E6E4'}" stroke-width="1"/>
+          ${T('mono', x, top + rowH * 2 - 6, v + '%', {a:'middle', size:'10', fill:'#8B959C'})}`;
+  }
+  data.forEach((d, i) => {
+    const cy = top + rowH * i + 42;
+    g += T('body', px0 - 18, cy + 4, d.g, {a:'end', size:'13.5'});
+    [[d.test, '#1B4A6E', -14], [d.chal, '#D9822B', 4]].forEach(([v, col, dy]) => {
+      const w = v * per;
+      g += `<rect x="${px0}" y="${cy + dy}" width="${w}" height="15" fill="${col}"/>
+            ${T('mono', px0 + w + 9, cy + dy + 12, v.toFixed(2) + '%', {size:'10.5', fill:'#57636D'})}`;
+    });
+  });
+  document.getElementById('fieldSvg').innerHTML = `
+    ${T('kicker', 56, 66, 'FIELD PREDICTION · GLOBAL MAX VON MISES, MAPE')}
+    ${T('h2', 56, 102, 'Message passing beats a coordinate MLP', {size:'26'})}
+    <g transform="translate(624,56)">
+      <rect x="0" y="0" width="12" height="12" fill="#1B4A6E"/>
+      ${T('mono', 20, 10, 'TEST', {size:'9.5', ls:'1.2'})}
+      <rect x="96" y="0" width="12" height="12" fill="#D9822B"/>
+      ${T('mono', 116, 10, 'CHALLENGE', {size:'9.5', ls:'1.2'})}
+    </g>
+    ${g}
+    ${T('body', 56, 416, 'Same inputs, same budget. On the challenge split the geometry-aware model carries about a third of the MLP’s error.',
+         {size:'12.5'})}
+    ${T('mono', 944, 440, 'source: reports/v0.6_gnn_field_prediction', {a:'end', size:'9.5', fill:'#8B959C'})}
+  `;
+})();
+
+/* ============================================================
+   8. MESH CONVERGENCE
+   ============================================================ */
+(function mesh(){
+  const rows = [
+    {k:'C3D4',  m:'1.5 mm', v:-19.30, bad:true},
+    {k:'C3D10', m:'4.0 mm', v:-2.57},
+    {k:'C3D10', m:'2.0 mm', v:-2.39},
+    {k:'C3D10', m:'1.5 mm', v:-2.35}
+  ];
+  const zero = 820, xa = 330, per = (zero - xa) / 20;
+  const X = (v) => zero + v * per;
+  const top = 180, rowH = 52;
+  let g = '';
+
+  g += `${T('mono', 56, top - 22, 'ELEMENT · MESH', {size:'9', ls:'1.2', fill:'#8B959C'})}
+        ${T('mono', xa, top - 22, 'ERROR VS BEAM THEORY', {size:'9', ls:'1.2', fill:'#8B959C'})}
+        ${T('mono', 944, top - 22, 'DELTA', {a:'end', size:'9', ls:'1.2', fill:'#8B959C'})}`;
+
+  for (let v = -20; v <= 0; v += 5){
+    const x = X(v);
+    g += `<line x1="${x}" y1="${top - 8}" x2="${x}" y2="${top + rowH * rows.length - 10}"
+                stroke="${v === 0 ? '#8B959C' : '#E7E9E6'}" stroke-width="1"/>`;
+  }
+
+  rows.forEach((r, i) => {
+    const cy = top + i * rowH + 16;
+    const col = r.bad ? '#B7382E' : '#1B4A6E';
+    g += `<line x1="${X(r.v)}" y1="${cy}" x2="${zero}" y2="${cy}" stroke="${col}" stroke-width="1.3" opacity=".4"/>
+          <circle cx="${X(r.v)}" cy="${cy}" r="5.5" fill="${col}"/>
+          ${T('mono', 56, cy + 4, r.k, {size:'11.5', fill:'#131A20'})}
+          ${T('mono', 112, cy + 4, r.m, {size:'10.5', fill:'#8B959C'})}
+          ${T('mono', 944, cy + 4, r.v.toFixed(2) + '%', {a:'end', size:'12', fill: r.bad ? '#B7382E' : '#131A20'})}`;
+  });
+
+  const axisY = top + rowH * rows.length;
+  for (let v = -20; v <= 0; v += 5){
+    g += T('mono', X(v), axisY + 16, v === 0 ? '0%' : v + '%',
+           {a:'middle', size:'9.5', fill:'#8B959C'});
+  }
+  g += `<line x1="${xa}" y1="${axisY - 4}" x2="${zero}" y2="${axisY - 4}" stroke="#D3D7D9" stroke-width="1"/>`;
+
+  document.getElementById('meshSvg').innerHTML = `
+    ${T('kicker', 56, 66, 'MESH CONVERGENCE · TIP DISPLACEMENT ERROR VS BEAM THEORY')}
+    ${T('h2', 56, 102, 'Why every label comes from quadratic tetrahedra', {size:'25'})}
+    ${g}
+    <line x1="56" y1="416" x2="944" y2="416" stroke="#D3D7D9" stroke-width="1"/>
+    ${T('body', 56, 440, 'Linear tets (red) miss by 19%. Between 2.0 mm and 1.5 mm the quadratic answer moves by 0.03%.', {size:'12.5'})}
+    ${T('mono', 944, 462, 'source: reports/validation/beam', {a:'end', size:'9.5', fill:'#8B959C'})}
+  `;
+})();
+
+/* ============================================================
+   9. PROVENANCE
+   ============================================================ */
+(function prov(){
+  const rows = [
+    {t:'prediction',        d:'app / API response'},
+    {t:'model metadata',    d:'models/*/metadata.json'},
+    {t:'dataset manifest',  d:'data/dataset_v2 · sha256'},
+    {t:'design table',      d:'data/designs_v2.csv · sha256'},
+    {t:'per-case run',      d:'run.json · mesh + deck + log'},
+    {t:'geometry metadata', d:'element order · refinement · minSICN'}
+  ];
+  const top = 150, rowH = 58, left = 56;
+  let g = '';
+  rows.forEach((r, i) => {
+    const y = top + i * rowH, inset = i * 9;
+    g += `<rect x="${left + inset}" y="${y}" width="${560 - inset * 2}" height="44" rx="2"
+              fill="#FFFFFF" fill-opacity=".6" stroke="#C9CED1" stroke-width="1"/>
+          <text class="num" x="${left + inset + 16}" y="${y + 27}" font-size="13.5">${r.t}</text>
+          <text class="mono" x="${left + 544 - inset}" y="${y + 27}" font-size="9" fill="#8B959C"
+                text-anchor="end">${r.d}</text>`;
+    if (i < rows.length - 1){
+      const cx = left + 26 + inset;
+      g += `<line x1="${cx}" y1="${y + 44}" x2="${cx}" y2="${y + rowH}" stroke="#8B959C" stroke-width="1.1"/>
+            <path d="M${cx},${y + rowH - 2} l-4,-6 h8 Z" fill="#8B959C"/>`;
+    }
+  });
+  document.getElementById('provSvg').innerHTML = `
+    ${T('kicker', 56, 66, 'PROVENANCE CHAIN')}
+    ${T('h2', 56, 104, 'Every prediction has a paper trail', {size:'24'})}
+    ${g}
+    <line x1="56" y1="502" x2="664" y2="502" stroke="#D3D7D9" stroke-width="1"/>
+    ${T('body', 56, 526, 'Each level records the git commit and dirty flag of the run that produced it.', {size:'11.5'})}
+  `;
+})();
+</script>
+</body>
+</html>
