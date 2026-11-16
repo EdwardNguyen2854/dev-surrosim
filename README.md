@@ -1,6 +1,6 @@
 # SurroSim
 
-[![CI](https://github.com/EdwardNguyen2854/dev-surrosim/actions/workflows/ci.yml/badge.svg)](https://github.com/EdwardNguyen2854/dev-surrosim/actions/workflows/ci.yml)
+[![CI](https://github.com/EdwardNguyen2854/surrosim/actions/workflows/ci.yml/badge.svg)](https://github.com/EdwardNguyen2854/surrosim/actions/workflows/ci.yml)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
 [![Status: v0.1.0 first public release](https://img.shields.io/badge/status-v0.1.0_first_public_release-brightgreen.svg)](CHANGELOG.md)

@@ -15,8 +15,8 @@ authors:
 version: 0.1.0
 date-released: 2026-11-16
 license: Apache-2.0
-repository-code: "https://github.com/EdwardNguyen2854/dev-surrosim"
-url: "https://github.com/EdwardNguyen2854/dev-surrosim"
+repository-code: "https://github.com/EdwardNguyen2854/surrosim"
+url: "https://github.com/EdwardNguyen2854/surrosim"
 keywords:
   - finite element analysis
   - surrogate modeling

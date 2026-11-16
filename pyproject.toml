@@ -47,11 +47,11 @@ app = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/EdwardNguyen2854/dev-surrosim"
-Repository = "https://github.com/EdwardNguyen2854/dev-surrosim"
-Issues = "https://github.com/EdwardNguyen2854/dev-surrosim/issues"
-Changelog = "https://github.com/EdwardNguyen2854/dev-surrosim/blob/main/CHANGELOG.md"
-Documentation = "https://github.com/EdwardNguyen2854/dev-surrosim/blob/main/docs/README.md"
+Homepage = "https://github.com/EdwardNguyen2854/surrosim"
+Repository = "https://github.com/EdwardNguyen2854/surrosim"
+Issues = "https://github.com/EdwardNguyen2854/surrosim/issues"
+Changelog = "https://github.com/EdwardNguyen2854/surrosim/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/EdwardNguyen2854/surrosim/blob/main/docs/README.md"
 
 [project.scripts]
 surrosim = "surrosim.cli:main"

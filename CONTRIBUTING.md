@@ -7,7 +7,7 @@ shapes how contributions are reviewed.
 ## Ways to contribute
 
 - Report a bug or an unclear document in
-  [Issues](https://github.com/EdwardNguyen2854/dev-surrosim/issues).
+  [Issues](https://github.com/EdwardNguyen2854/surrosim/issues).
 - Reproduce a result and tell us whether you matched it.
 - Improve documentation, the plain-language manual, or the web app.
 - Add a test, a shape family, a baseline model, or a solver improvement.

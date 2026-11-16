@@ -12,7 +12,7 @@
 Please **do not** open a public issue for a security problem.
 
 Report it privately through GitHub's
-[security advisory](https://github.com/EdwardNguyen2854/dev-surrosim/security/advisories/new)
+[security advisory](https://github.com/EdwardNguyen2854/surrosim/security/advisories/new)
 form. That keeps the details private until a fix is ready.
 
 Please include:
