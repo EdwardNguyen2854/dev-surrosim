@@ -268,8 +268,17 @@ def _comparison_figure(metadata: dict, path: Path) -> None:
     for axis, target in zip(axes, labels):
         models = metadata["targets"][target]["models"]
         names = list(models.keys())
-        mape = [models[name]["test"]["mape_pct"] for name in names]
-        worst = [models[name]["test"]["max_rel_error_pct"] for name in names]
+
+        def metric(name: str, key: str) -> float:
+            # A small profile (quick reproduction) can leave a split empty, in
+            # which case the metric is None. Plot it as a gap rather than
+            # letting matplotlib raise on a None height.
+            split = models[name].get("test") or {}
+            value = split.get(key)
+            return float("nan") if value is None else float(value)
+
+        mape = [metric(name, "mape_pct") for name in names]
+        worst = [metric(name, "max_rel_error_pct") for name in names]
         positions = np.arange(len(names))
         axis.bar(positions - 0.2, mape, width=0.4, label="MAPE (mean)")
         axis.bar(positions + 0.2, worst, width=0.4, label="worst-case rel.")
